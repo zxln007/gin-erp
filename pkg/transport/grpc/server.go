@@ -3,10 +3,18 @@
 // license that can be found in the LICENSE file.
 package grpc
 
-import "github.com/grpc/grpc-go"
+import (
+	"google.golang.org/grpc"
+	"log"
+	"net"
+)
 
 func Start() {
+	lis, err := net.Listen("tcp", "localhost:8080")
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
 	server := grpc.NewServer()
-	server.Serve()
+	server.Serve(lis)
 
 }
